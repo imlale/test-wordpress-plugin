@@ -6,6 +6,9 @@ Description: Este plugin es de pruebas
 Version: 0.0.1
 */
 
+//Requieres
+require_once dirname(__FILE__). '/clases/CodigoCorto.php';
+
 //logica funcion activar
 function Activar(){
     global $wpdb;
@@ -43,6 +46,7 @@ function Activar(){
 function Desactivar(){
     
 }
+
 
 
 //Registart la función de activar
@@ -157,3 +161,16 @@ function EliminarEnucesta(){
 }
 
 add_action( 'wp_ajax_peticioneliminar', 'EliminarEnucesta');
+
+
+//shortcode
+
+function imprimirShortcode($atts){
+    $_short = new CodigoCorto;
+    $id = $atts['id'];
+
+    $html = $_short->armarForm($id);
+    return $html;
+}
+
+add_shortcode( "ENC", "imprimirShortcode" );
